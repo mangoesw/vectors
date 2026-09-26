@@ -59,9 +59,9 @@ VectorComponents parse_line() {
     case south: radians += 3 * pi / 2.0;
   }
   radians += ((std::to_underlying(direction) > std::to_underlying(reference)) ? deg_to_rad(degrees) : -deg_to_rad(degrees));
-  std::cout << radians * 180.0 / pi << '\n';
-  std::cout << radians << "\n\n";
-  return VectorComponents{magnitude * std::cos(radians), magnitude * std::sin(radians)};
+  double x{magnitude * std::cos(radians)}, y{magnitude * std::sin(radians)};
+  std::cout << radians * 180.0 / pi << ';' << radians << '\n' << x << ',' << y << "\n\n";
+  return VectorComponents{x, y};
 }
 
 int main() {
