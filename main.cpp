@@ -1,4 +1,6 @@
+#include <array>
 #include <cmath>
+#include <cstddef>
 #include <cstdio>
 #include <iostream>
 #include <limits>
@@ -6,9 +8,9 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
-#include <vector>
+// #include <vector>
 
-constexpr int NUM_VECTORS{90};
+constexpr std::size_t NUM_VECTORS{90};
 
 class VectorComponents {
 public:
@@ -64,11 +66,22 @@ VectorComponents parse_line() {
   return VectorComponents{x, y};
 }
 
+template <std::size_t N>
+std::array<VectorComponents, N> make_vector_array() {
+  return []<std::size_t... Is>(std::index_sequence<Is...>) {
+    return std::array<VectorComponents, N>{ (static_cast<void>(Is), parse_line())... };
+  }(std::make_index_sequence<N>{});
+}
+
 int main() {
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+  const auto vectors{make_vector_array<NUM_VECTORS>()};
+  /*
   std::vector<VectorComponents> vectors{};
   vectors.reserve(NUM_VECTORS);
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  for (int i{0}; i < NUM_VECTORS; ++i) {
+  for (std::size_t i{0}; i < NUM_VECTORS; ++i) {
     vectors.emplace_back(parse_line());
   }
+  */
 }
