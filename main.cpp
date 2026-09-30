@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -5,6 +6,9 @@
 #include <iostream>
 #include <limits>
 #include <numbers>
+#include <numeric>
+#include <print>
+#include <random>
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -48,7 +52,7 @@ VectorComponents parse_line() {
     direction_char = ref_char;
     degrees = 0;
   }
-  std::cout << magnitude << ref_char << degrees << direction_char << '\n';
+  // std::cout << magnitude << ref_char << degrees << direction_char << '\n';
 
   Direction reference{char_to_direction(ref_char)};
   Direction direction{char_to_direction(direction_char)};
@@ -62,7 +66,7 @@ VectorComponents parse_line() {
   }
   radians += ((std::to_underlying(direction) > std::to_underlying(reference)) ? deg_to_rad(degrees) : -deg_to_rad(degrees));
   double x{magnitude * std::cos(radians)}, y{magnitude * std::sin(radians)};
-  std::cout << radians * 180.0 / pi << ';' << radians << '\n' << x << ',' << y << "\n\n";
+  // std::cout << radians * 180.0 / pi << ';' << radians << '\n' << x << ',' << y << "\n\n";
   return VectorComponents{x, y};
 }
 
@@ -84,4 +88,7 @@ int main() {
     vectors.emplace_back(parse_line());
   }
   */
+
+  std::array<std::size_t, NUM_VECTORS> vectors_i;
+  std::ranges::iota(vectors_i, 0);
 }
